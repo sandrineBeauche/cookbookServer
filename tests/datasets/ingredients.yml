@@ -1,0 +1,19 @@
+ingredient:
+  -
+    id: 1
+    quantity: 50
+    unitId: 1
+    ingredientId: 3
+    recipeId: 1
+  -
+    id: 2
+    quantity: 20
+    unitId: 2
+    ingredientId: 2
+    recipeId: 1
+  -
+    id: 3
+    quantity: 2
+    unitId: NULL
+    ingredientId: 1
+    recipeId: 2

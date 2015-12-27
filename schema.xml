@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="cookbook" defaultIdMethod="native" defaultPhpNamingMethod="nochange">
+    
+  <table name="recipes" phpName="Recipe">
+    <column name="id" phpName="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+    <column name="name" phpName="name" type="varchar" size="60" required="true" />
+    <column name="description" phpName="description" type="varchar" size="255" required="false" />
+    <column name="photo" phpName="photo" type="varchar" size="255" required="false" />
+    <column name="category" phpName="category" type="integer" required="false" />
+    <column name="origin" phpName="origin" type="integer" required="false" />
+    <column name="cost" phpName="cost" type="tinyint" required="false" />
+    <column name="difficulty" phpName="difficulty" type="tinyint" required="false" />
+    <column name="time" phpName="time" type="tinyint" required="false" />
+    <column name="calories" phpName="calories" type="tinyint" required="false" />
+    <validator column="name">
+        <rule name="match" value="/^[a-zA-Z0-9éèàôâê ]+$/" message="Entrez un nom de recette valide." />
+        <rule name="minLength" value="1" message="Le nom de la recette ne peut être vide." />
+        <rule name="maxLength" value="60" message="Le nom de la recette ne peut excéder 60 caractères." />
+        <rule name="unique" message="Cette recette existe déja." />
+    </validator>
+    <validator column="description">
+        <rule name="maxLength" value="255" message="La description de la recette ne peut exceder 255 caracteres." />
+    </validator>
+    <validator column="cost">
+        <rule name="minValue" value="1" message="La valeur doit être comprise entre 1 et 5" />
+        <rule name="maxValue" value="5" message="La valeur doit être comprise entre 1 et 5" />
+    </validator>
+    <validator column="difficulty">
+        <rule name="minValue" value="1" message="La valeur doit être comprise entre 1 et 5" />
+        <rule name="maxValue" value="5" message="La valeur doit être comprise entre 1 et 5" />
+    </validator>
+    <validator column="time">
+        <rule name="minValue" value="1" message="La valeur doit être comprise entre 1 et 5" />
+        <rule name="maxValue" value="5" message="La valeur doit être comprise entre 1 et 5" />
+    </validator>
+    <validator column="calories">
+        <rule name="minValue" value="1" message="La valeur doit être comprise entre 1 et 5" />
+        <rule name="maxValue" value="5" message="La valeur doit être comprise entre 1 et 5" />
+    </validator>
+    <foreign-key foreignTable = "country">
+        <reference local="origin" foreign="id" />
+    </foreign-key>
+    <foreign-key foreignTable = "recipe_type">
+        <reference local="category" foreign="id" />
+    </foreign-key>
+    <validator column="origin">
+        <rule name="class" class="CIRValidator" value="country" message="Pays non trouvé"/>
+    </validator>
+    <validator column="category">
+        <rule name="class" class="CIRValidator" value="recipe_type" message="Type de recette non trouvé"/>
+    </validator>
+  </table>
+  
+  
+  <table name="users" phpName="User">
+    <column name="id" phpName="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+    <column name="username" phpName="username" type="varchar" size="60" required="true" />
+    <column name="password" phpName="password" type="varchar" size="255" required="true"/>
+    <column name="accountType" phpName="accountType" type="tinyint" size="2" required="true"/>
+    <column name="key" phpName="key" type="varchar" size="50"/>
+    <unique>
+        <unique-column name="username" />
+    </unique>
+    <validator column="username">
+        <rule name="match" value="/^[a-zA-Z0-9\.]+@[a-zA-Z0-9]+\.[a-z]+$/" message="Entrez une url valide." />
+        <rule name="minLength" value="1" message="Le login ne peut être vide." />
+        <rule name="maxLength" value="60" message="Le login ne peut excéder 60 caracteres." />
+        <rule name="unique" message="Ce login éxiste deja." />
+    </validator>
+    <validator column="password">
+        <rule name="minLength" value="1" message="Le mot de passe ne peut être vide." />
+        <rule name="maxLength" value="60" message="Le mot de passe ne peut excéder 255 caractères." />
+    </validator>
+  </table>
+  
+  <table name="recipe_steps" phpName="RecipeSteps">
+      <column name="id" phpName="id" type="bigint" required="true" primaryKey="true" autoIncrement="true"/>
+      <column name="description" phpName="description" type="longvarchar" required="true"/>
+      <column name="order" phpName="order" type="smallint" required="true"/>
+      <column name="recipeId" phpName="recipeId" type="integer" required="true"/>
+      <validator column="description">
+          <rule name="minLength" value="1" message="La description ne peut être vide." />
+      </validator>
+      <validator column="order">
+          <rule name="minValue" value="1" message="L'ordre devrait être strictement positif" />
+      </validator>
+      <foreign-key foreignTable = "recipes" onDelete="cascade">
+          <reference local="recipeId" foreign="id" />
+      </foreign-key>
+  </table>
+  
+  <table name="ingredient_type" phpName="ingredientType">
+      <column name="id" phpName="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+      <column name="name" phpName="name" type="varchar" size="30" required="true"/>
+      <validator column="name">
+          <rule name="minLength" value="1" message="Le nom ne peut être vide." />
+          <rule name="unique" message="Cet ingredient existe déja." />
+      </validator>
+  </table>
+  
+  <table name="unit" phpName="unit">
+      <column name="id" phpName="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+      <column name="name" phpName="name" type="varchar" size="15" required="true"/>
+      <validator column="name">
+          <rule name="minLength" value="1" message="Le nom ne peut être vide." />
+          <rule name="unique" message="Cette unité existe déja." />
+      </validator>
+  </table>
+  
+  <table name="ingredient" phpName="ingredient">
+      <column name="id" phpName="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+      <column name="quantity" phpName="quantity" type="smallint" required="true"/>
+      <column name="unitId" phpName="unitId" type="integer" required="false"/>
+      <column name="ingredientId" phpName="ingredientId" type="integer" required="true"/>
+      <column name="recipeId" phpName="recipeId" type="integer" required="true"/>
+      <foreign-key foreignTable = "unit">
+          <reference local="unitId" foreign="id" />
+      </foreign-key>
+      <foreign-key foreignTable = "ingredient_type">
+          <reference local="ingredientId" foreign="id" />
+      </foreign-key>
+      <foreign-key foreignTable = "recipes" onDelete="cascade">
+          <reference local="recipeId" foreign="id" />
+      </foreign-key>
+      <validator column="unitId">
+           <rule name="class" class="CIRValidator" value="unit" message="Unité non trouvée"/>
+      </validator>
+      <validator column="ingredientId">
+           <rule name="class" class="CIRValidator" value="ingredient_type" message="Ingredient non trouvé"/>
+      </validator>
+      <validator column="quantity">
+          <rule name="minValue" value="0" message="Une quantité ne peut être négative" />
+      </validator>
+  </table>
+  
+  <table name="country" phpName="country">
+      <column name="id" phpName="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+      <column name="name" phpName="name" type="varchar" size="30" required="true"/>
+      <column name="flag" phpName="flag" type="varchar" size="255" required="true"/>
+      <validator column="name">
+          <rule name="minLength" value="1" message="Le nom ne peut être vide." />
+          <rule name="unique" message="Ce pays existe déja." />
+      </validator>
+  </table>
+  
+  <table name="recipe_type" phpName="recipeType">
+      <column name="id" phpName="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+      <column name="name" phpName="name" type="varchar" size="30" required="true"/>
+      <validator column="name">
+          <rule name="minLength" value="1" message="Le nom ne peut être vide." />
+          <rule name="unique" message="Cette catégorie existe déja." />
+      </validator>
+  </table>
+  
+  <table name="tag_names" phpName="tagNames">
+      <column name="id" phpName="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+      <column name="name" phpName="name" type="varchar" size="30" required="true"/>
+      <validator column="name">
+          <rule name="minLength" value="1" message="Le nom ne peut être vide." />
+          <rule name="unique" message="Cette catégorie existe déja." />
+      </validator>
+  </table>
+  
+  <table name="tags" phpName="tags">
+      <column name="id" phpName="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+      <column name="recipeId" phpName="recipeId" type="integer" required="true"/>
+      <column name="tagId" phpName="tagId" type="integer" required="true"/>
+      <foreign-key foreignTable = "recipes" onDelete="cascade">
+          <reference local="recipeId" foreign="id" />
+      </foreign-key>
+      <foreign-key foreignTable = "tag_names" onDelete="cascade">
+          <reference local="tagId" foreign="id" />
+      </foreign-key>
+  </table>
+</database>

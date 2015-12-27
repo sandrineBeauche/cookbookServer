@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="vendor/phing/phing/etc/phing-grammar.rng" 
+            type="application/xml" 
+            schematypens="http://relaxng.org/ns/structure/1.0" ?>
+<project name="cookbook_server" basedir="." default="main">
+    
+    <property name="propelBuild" value="vendor/propel/propel1/generator/build.xml"/>
+    <property name="env" value="dev"/>
+    
+    <property file="./conf/${env}/build.properties" />
+    
+    <target name="sources">
+        <phing phingFile="${propelBuild}" inheritAll="false" target="om">
+            <property name="project.dir" value="." />
+            <property name="build.properties" value="./conf/${env}/build.properties"/>
+        </phing>
+        <phing phingFile="${propelBuild}" inheritAll="false" target="convert-conf">
+            <property name="project.dir" value="." />
+            <property name="build.properties" value="./conf/${env}/build.properties"/>
+            <property name="propel.conf.dir" value="${project.basedir}/conf/${env}"/>
+        </phing>
+    </target>
+   
+    <target name="setupDatabase">
+        <phing phingFile="${propelBuild}" inheritAll="false" target="sql">
+            <property name="project.dir" value="." />
+            <property name="build.properties" value="./conf/${env}/build.properties"/>
+       </phing>
+        <pdo url="${propel.database}:host=${database.host};dbname=information_schema" encoding="utf8"
+            userId="root" password=""
+            onerror="abort">
+
+            DROP DATABASE IF EXISTS `${database.name}`;
+            CREATE DATABASE `${database.name}`;
+            USE `${database.name}`;
+       </pdo>
+       <phing phingFile="${propelBuild}" inheritAll="false" target="insert-sql">
+            <property name="project.dir" value="." />
+            <property name="build.properties" value="./conf/${env}/build.properties"/>
+       </phing>
+       <if>
+           <isset property="dataFile"/>
+           <then>
+                <pdo url="${propel.database}:host=${database.host};dbname=${database.name}" encoding="utf8"
+                    userId="${propel.database.user}" password="${propel.database.password}"
+                    src="${dataFile}" />
+           </then>
+       </if>
+    </target>
+    
+    
+    <target name="deploy">
+        <copy todir="${deploy.dir}">
+            <fileset dir=".">
+                <include name="bootstrap.php" />
+                <include name="api/**/*" />
+                <include name="build/**/*" />
+                <include name="services/**/*" />
+                <include name="utils/**/*" />
+                <include name="vendor/autoload.php" />
+                <include name="vendor/symfony/**/*" />
+                <include name="vendor/propel/propel1/runtime/**/*" />
+            </fileset>
+        </copy>
+    </target>
+</project>

@@ -1,0 +1,13 @@
+ingredient_type:
+  -
+    id: 1
+    name: "oeufs"
+  -
+    id: 2
+    name: "lait"
+  -
+    id: 3
+    name: "sucre"
+  -
+    id: 4
+    name: "farine"

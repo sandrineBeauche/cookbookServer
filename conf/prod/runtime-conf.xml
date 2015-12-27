@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <propel>
+    <datasources default="cookbook">
+      <datasource id="cookbook">
+        <adapter>mysql</adapter> <!-- sqlite, mysql, mssql, oracle, or pgsql -->
+        <connection>
+          <dsn>mysql:host=mysql.hostinger.fr;dbname=u516323766_cook</dsn>
+          <user>u516323766_root</user>
+          <password>usp8m982NR</password>
+          <settings>
+            <setting id="charset">utf8</setting>
+          </settings>
+            <options>
+                <option id="MYSQL_ATTR_INIT_COMMAND">SET NAMES utf8 COLLATE utf8_unicode_ci</option>
+            </options>
+        </connection>
+      </datasource>
+    </datasources>
+  </propel>
+</config>

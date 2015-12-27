@@ -1,0 +1,10 @@
+AddDefaultCharset UTF-8
+RewriteEngine on
+
+RewriteOptions Inherit
+
+RewriteRule ^([0-9]+)/steps/(.*)$ steps/$2?recipeId=$1 
+RewriteRule ^([0-9]+)/steps/?$ steps?recipeId=$1 
+
+RewriteRule ^([0-9]+)/ingredients/(.*)$ ingredients/$2?recipeId=$1 
+RewriteRule ^([0-9]+)/ingredients/?$ ingredients?recipeId=$1 

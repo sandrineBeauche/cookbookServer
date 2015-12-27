@@ -1,0 +1,20 @@
+users:
+  -
+    id: 1
+    username: "sandrine.beauche@gmail.com"
+    password: "pajzOBqdsf9fI" 
+    accountType: 1
+    key: null
+  -
+    id: 2
+    username: "sandrine.beauche@ambientic.com"
+    password: "pajzOBqdsf9fI"
+    accountType: 2
+    key: null
+  -
+    id: 3
+    username: "sandrine.beauche@sfr.fr"
+    password: "pajzOBqdsf9fI"
+    accountType: 3
+    key: null
+  

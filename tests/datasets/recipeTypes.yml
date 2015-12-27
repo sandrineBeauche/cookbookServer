@@ -1,0 +1,10 @@
+recipe_type:
+  -
+    id: 1
+    name: "soupe"
+  -
+    id: 2
+    name: "salade"
+  -
+    id: 3
+    name: "dessert"

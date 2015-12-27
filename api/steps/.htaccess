@@ -1,0 +1,10 @@
+AddDefaultCharset UTF-8
+RewriteEngine on
+
+RewriteOptions Inherit
+
+RewriteCond %{REQUEST_METHOD} PUT 
+RewriteRule ^([0-9]+)/up$ up.php?id=$1
+
+RewriteCond %{REQUEST_METHOD} PUT 
+RewriteRule ^([0-9]+)/down$ down.php?id=$1

@@ -1,0 +1,11 @@
+recipe_steps:
+  -
+    id: 1 
+    description: "step1"
+    order: 1
+    recipeId: 1
+  -
+    id: 2
+    description: "step2"
+    order: 2
+    recipeId: 1

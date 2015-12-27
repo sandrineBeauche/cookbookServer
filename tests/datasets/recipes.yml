@@ -1,0 +1,38 @@
+recipes:
+  -
+    id: 1
+    name: "recipe1"
+    description: "recipe1 description"
+    photo: NULL
+    category: 1
+    origin: 1
+    cost: 3
+    difficulty: 3
+    time: 3
+    calories: 3
+  -
+    id: 2
+    name: "recipe2"
+    description: "recipe2 description"
+    category: 1
+    origin: 2
+  -
+    id: 3
+    name: "recipe3"
+    description: "recipe3 description"
+    category: 2
+    origin: 2
+  -
+    id: 4
+    name: "recipe4"
+    description: "recipe4 description"
+  -
+    id: 5
+    name: "recipe5"
+    description: "recipe5 description"
+    category: 2
+  -
+    id: 6
+    name: "recipe6"
+    description: "recipe6 description"
+    origin: 1

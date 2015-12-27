@@ -1,0 +1,13 @@
+country:
+  -
+    id: 1
+    name: "France"
+    flag: "http://www.drapeauxdespays.fr/data/flags/mini/fr.png"
+  -
+    id: 2
+    name: "Tunisie"
+    flag: "http://www.drapeauxdespays.fr/data/flags/mini/tn.png"
+  -
+    id: 3
+    name: "Chine"
+    flag: "http://www.drapeauxdespays.fr/data/flags/mini/cn.png"
