@@ -136,7 +136,7 @@ abstract class CookbookTest extends PHPUnit_Extensions_Database_TestCase {
         }
         catch(Exception $ex){
             $response = $ex->getResponse();
-            $this->assertEquals(404, $response->getStatusCode());
+            $this->assertEquals(500, $response->getStatusCode());
         }
     }
     

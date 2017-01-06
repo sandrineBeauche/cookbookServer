@@ -27,7 +27,7 @@
             <property name="build.properties" value="./conf/${env}/build.properties"/>
        </phing>
         <pdo url="${propel.database}:host=${database.host};dbname=information_schema" encoding="utf8"
-            userId="root" password=""
+            userId="root" password="root"
             onerror="abort">
 
             DROP DATABASE IF EXISTS `${database.name}`;

@@ -11,6 +11,12 @@ RewriteRule ^([0-9]+)/?$ findOne.php?%1&id=$1
 RewriteCond %{REQUEST_METHOD} GET 
 RewriteRule ^([0-9]+)/?$ findOne.php?id=$1
 
+RewriteCond %{REQUEST_METHOD} POST
+RewriteRule login login.php
+
+RewriteCond %{REQUEST_METHOD} POST
+RewriteRule logout logout.php
+
 
 RewriteCond %{REQUEST_METHOD} POST 
 RewriteRule ^$ create.php
